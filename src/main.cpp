@@ -23,6 +23,28 @@ int main()
     */
 
     // 1. FIRST IMPLEMENT CONTAINS & COPY CONSTRUCTOR, THEN TEST
+
+    //test for contains function 
+    // for(int i = 0; i < userFeatures; i++){
+    //     int test_num_2;
+    //     cout << "Enter num to add to features: ";
+    //     cin >> test_num_2;
+    //     initialNode.features.push_back(test_num_2);
+    //     cout << endl;
+    // }
+
+    // int test_num;
+    // cout << "Enter number to test contains in features: ";
+    // cin >> test_num;
+    // cout << endl;
+    // if(initialNode.contains(test_num)){
+    //     cout << "features contains " << test_num << endl;
+    // }
+    // else{
+    //     cout << "features does not contain " << test_num << endl;
+    // }
+
+
     // 2. IMPLEMENT EXPLORE, THEN TEST (ONLY FORWARD RN)
     // 3. FINISH IMPLEMENTING MAIN FUNC
 

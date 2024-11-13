@@ -23,6 +23,21 @@ void FeatureNode::accuracyEvaluation()
     accuracy = random * 100.00;
 }
 
+bool FeatureNode::contains(int num){
+    if (features.size() == 0){
+        return false;
+    }
+    else{
+        for(int i = 0; i < features.size(); i++){
+            if(num == features.at(i)){
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+
 // contains
 
 // copy constructor
