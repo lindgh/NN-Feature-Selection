@@ -1,6 +1,6 @@
 #include "../header/FeatureNode.h"
 
-FeatureNode explore(FeatureNode parent);
+// FeatureNode explore(FeatureNode parent);
 
 int main()
 {
@@ -12,6 +12,15 @@ int main()
     cout << endl;
 
     FeatureNode initialNode(userFeatures); // THIS IS THE PARENT
+
+    /* COPY CONSTRUCTOR & OVERLOADING OPERATOR TESTS
+    initialNode.features.push_back(1);
+    initialNode.features.push_back(4);
+
+    FeatureNode temp = initialNode;
+    temp.accuracyEvaluation();
+    cout << "initialNode: " << initialNode << "\ncopy node: " << temp << endl;
+    */
 
     // 1. FIRST IMPLEMENT CONTAINS & COPY CONSTRUCTOR, THEN TEST
     // 2. IMPLEMENT EXPLORE, THEN TEST (ONLY FORWARD RN)
@@ -40,31 +49,31 @@ int main()
     return 0;
 }
 
-FeatureNode explore(FeatureNode parent)
-{
+// FeatureNode explore(FeatureNode parent)
+// {
 
-    // FeatureNode maxChild;
-    // bool firstChild = false;
+//     // FeatureNode maxChild;
+//     // bool firstChild = false;
 
-    // explore function, resturns featurenode, pass in a feature node "parent"
-    // //ex parent = {}
-    // for (int i = 1; i <= featureLimit; ++i) {
+//     // explore function, resturns featurenode, pass in a feature node "parent"
+//     // //ex parent = {}
+//     // for (int i = 1; i <= featureLimit; ++i) {
 
-    //    if (!parent.contains(i)) {
-    //     FeatureNode temp = parent;
-    //     temp.feature.push_back(i);
-    //     temp.accuracyEvaluation();
+//     //    if (!parent.contains(i)) {
+//     //     FeatureNode temp = parent;
+//     //     temp.feature.push_back(i);
+//     //     temp.accuracyEvaluation();
 
-    //     if (!firstChild) {
-    //     maxChild = temp;
-    //     firstChild = true;
-    //     }
-    //     else {
-    //         if (temp.accuracy > maxChild.accuracy)
-    //         maxChild = temp;
-    //     }
-    //     }
-    // }
+//     //     if (!firstChild) {
+//     //     maxChild = temp;
+//     //     firstChild = true;
+//     //     }
+//     //     else {
+//     //         if (temp.accuracy > maxChild.accuracy)
+//     //         maxChild = temp;
+//     //     }
+//     //     }
+//     // }
 
-    // return maxChild
-}
+//     // return maxChild
+// }

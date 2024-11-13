@@ -17,9 +17,11 @@ public:
     // FUNCTIONS
 
     FeatureNode();
-    FeatureNode(int numFeatures); // 1. constructor. takes in # of features to be considered
-    void accuracyEvaluation();    // 2. evaluation function on a FeatureNode modifies accuracy
-    // 3. copy constructor
+    FeatureNode(int numFeatures);                   // 1. constructor. takes in # of features to be considered
+    void accuracyEvaluation();                      // 2. evaluation function on a FeatureNode modifies accuracy
+    FeatureNode &operator=(const FeatureNode &rhs); // 3. copy constructor
+    friend ostream &operator<<(ostream &out, const FeatureNode &node);
+
     // 4. bool contains(int):  checks if a node's feature vector contains an int i.
     // edge case for when node.features.size() == 0. if its feature vector is empty, return false
     // otherwise, loop through features vector, return true if i is there
