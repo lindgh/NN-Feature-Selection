@@ -23,6 +23,7 @@ public:
     // 4. bool contains(int):  checks if a node's feature vector contains an int i.
     // edge case for when node.features.size() == 0. if its feature vector is empty, return false
     // otherwise, loop through features vector, return true if i is there
+    bool contains(int num); //tested and done
 };
 
 #endif
