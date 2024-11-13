@@ -1,11 +1,17 @@
 #include "../header/FeatureNode.h"
 #include <ctime>
 
+FeatureNode::FeatureNode()
+{
+    accuracy = 0.0;
+    featureLimit = 0;
+}
+
 FeatureNode::FeatureNode(int numFeatures)
 {
     // set featureLimit to features
-    cout << "Testing construction of FeatureNode. Passed in " << numFeatures << " features. FINISH IMPLEMENTING.\n"
-         << endl;
+    accuracy = 0.0;
+    featureLimit = numFeatures;
 }
 
 void FeatureNode::accuracyEvaluation()
@@ -17,3 +23,7 @@ void FeatureNode::accuracyEvaluation()
     double random = (double)rand() / RAND_MAX;
     accuracy = random * 100.00;
 }
+
+// contains
+
+// copy constructor
