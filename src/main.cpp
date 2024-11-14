@@ -5,11 +5,14 @@
 FeatureNode ForwardExplore(FeatureNode parent);
 FeatureNode ForwardSelection(int userFeatures);
 
+FeatureNode BackwardExplore(FeatureNode parent);
+FeatureNode BackwardElimination(int userFeatures);
+
 int main()
 {
     srand(time(0));
 
-    cout << "Welcome to lghun001 and akath002's Feature Selection Algorithm." << "\n\nPlease enter total number of features: ";
+    cout << "Welcome to lghun001 and aketh002's Feature Selection Algorithm." << "\n\nPlease enter total number of features: ";
 
     int userFeatures; // NUM OF FEATURES USER WANTS
     cin >> userFeatures;
@@ -17,7 +20,7 @@ int main()
 
     cout << "Type the number of the algorithm you want to run.\n\n";
     cout << "\t1. Forward Selection" << endl;
-    cout << "\t2. Backward Elimination (UNDER CONSTRUCTION)\n"
+    cout << "\t2. Backward Elimination\n"
          << endl;
 
     int userAlgorithm; // ALGORITHM USER WANTS
@@ -36,7 +39,8 @@ int main()
         break;
 
     case 2:
-        cout << "Backward Elimination under construction!" << endl;
+        cout << "Backward Elimination Selection Search.\n" << endl;
+        bestFeatures = BackwardElimination(userFeatures);
         break;
     }
 
@@ -118,4 +122,71 @@ FeatureNode ForwardExplore(FeatureNode parent)
          << endl;
 
     return maxChild;
+}
+
+FeatureNode BackwardExplore(FeatureNode parent) {
+    
+    FeatureNode maxChild;
+    bool firstChild = false;
+
+    for (int i = 0; i < parent.features.size(); i++)
+    {
+
+
+        FeatureNode temp = parent;
+        temp.features.erase(temp.features.begin()+i);
+        temp.accuracyEvaluation();
+
+        cout << "\tUsing feature(s) " << temp << " accuracy is " << fixed << setprecision(2) << temp.accuracy << "%" << endl;
+
+        if (!firstChild)
+        {
+            maxChild = temp;
+            firstChild = true;
+        }
+        else
+        {
+            if (temp.accuracy > maxChild.accuracy)
+            {
+                maxChild = temp;
+            }
+        }
+    }
+
+    cout << "\nFeature set " << maxChild << " was best, accuracy is " << maxChild.accuracy << "%\n"
+         << endl;
+
+    return maxChild;
+
+}
+
+FeatureNode BackwardElimination(int userFeatures){
+    FeatureNode initialNode(userFeatures);
+    vector<FeatureNode> result;
+    FeatureNode temp;
+    bool solutionFound = false;
+
+    for(int i = 1; i <= userFeatures; i++){
+        initialNode.features.push_back(i);
+    }
+
+    initialNode.accuracyEvaluation();
+    result.push_back(initialNode);
+
+    cout << "Starting with feature set " << initialNode << " with accuracy " << initialNode.accuracy <<
+    "%\n" << endl;
+
+    while((result.back().features.size() > 1) && (!solutionFound)){
+        temp = BackwardExplore(result.back());
+        if(result.back().accuracy > temp.accuracy){
+            cout << "(WARNING, Accuracy has decreased!)" << endl;
+            solutionFound = true;
+        }
+        else{
+            result.push_back(temp);
+        }
+    }
+
+    return result.back();
+
 }
