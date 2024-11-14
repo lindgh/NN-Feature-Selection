@@ -1,102 +1,121 @@
 #include "../header/FeatureNode.h"
+#include <ctime>
+#include <iomanip>
 
-// FeatureNode explore(FeatureNode parent);
+FeatureNode ForwardExplore(FeatureNode parent);
+FeatureNode ForwardSelection(int userFeatures);
 
 int main()
 {
+    srand(time(0));
 
-    cout << "Welcome to lghun001 and [advithi netid]'s Feature Selection Algorithm." << "\n\nPlease enter total number of features: ";
+    cout << "Welcome to lghun001 and akath002's Feature Selection Algorithm." << "\n\nPlease enter total number of features: ";
 
-    int userFeatures;
+    int userFeatures; // NUM OF FEATURES USER WANTS
     cin >> userFeatures;
     cout << endl;
 
-    FeatureNode initialNode(userFeatures); // THIS IS THE PARENT
+    cout << "Type the number of the algorithm you want to run.\n\n";
+    cout << "\t1. Forward Selection" << endl;
+    cout << "\t2. Backward Elimination (UNDER CONSTRUCTION)\n"
+         << endl;
 
-    // 1. FIRST IMPLEMENT CONTAINS & COPY CONSTRUCTOR, THEN TEST ---
-
-    /* COPY CONSTRUCTOR & OVERLOADING OPERATOR TESTS
-    initialNode.features.push_back(1);
-    initialNode.features.push_back(4);
-
-    FeatureNode temp = initialNode;
-    temp.accuracyEvaluation();
-    cout << "initialNode: " << initialNode << "\ncopy node: " << temp << endl;
-    */
-
-    /* CONTAINS FUNCTION TEST
-    for(int i = 0; i < userFeatures; i++){
-        int test_num_2;
-        cout << "Enter num to add to features: ";
-        cin >> test_num_2;
-        initialNode.features.push_back(test_num_2);
-        cout << endl;
-    }
-
-    int test_num;
-    cout << "Enter number to test contains in features: ";
-    cin >> test_num;
+    int userAlgorithm; // ALGORITHM USER WANTS
+    cout << "Your choice: ";
+    cin >> userAlgorithm;
     cout << endl;
-    if(initialNode.contains(test_num)){
-        cout << "features contains " << test_num << endl;
+
+    // call appropriate algorithm to get best set of features!
+    FeatureNode bestFeatures;
+    switch (userAlgorithm)
+    {
+    case 1:
+        cout << "Beginning Forward Selection Search.\n"
+             << endl;
+        bestFeatures = ForwardSelection(userFeatures);
+        break;
+
+    case 2:
+        cout << "Backward Elimination under construction!" << endl;
+        break;
     }
-    else{
-        cout << "features does not contain " << test_num << endl;
-    }
-    */
 
-    // 2. IMPLEMENT EXPLORE, THEN TEST (ONLY FORWARD RN) ---
-
-    // 3. FINISH IMPLEMENTING MAIN FUNC ---
-
-    // assuming parent is {} from beginning
-
-    // BELOW IN MAIN FOR NOW
-
-    // vector<FeatureNode> result;
-    // FeatureNode temp;
-
-    // while (result.size() < initialNode.featureLimit)
-    // {
-    //     if (result.size() == 0)
-    //     {S
-    //         temp = explore(initialNode);
-    //     }
-    //     else
-    //     {
-    //         temp = explore(result.at(result.size() - 1));
-    //     }
-    //     result.push_back(temp);
-    // }
+    cout << "Finished search!! The best feature subset is " << bestFeatures << ", which has an accuracy of " << bestFeatures.accuracy << "%\n"
+         << endl;
 
     return 0;
 }
 
-// FeatureNode explore(FeatureNode parent)
-// {
+FeatureNode ForwardSelection(int userFeatures)
+{
 
-//     // FeatureNode maxChild;
-//     // bool firstChild = false;
+    FeatureNode initialNode(userFeatures); // make parent node. initially an empty set of features
+    vector<FeatureNode> result;            // result vector to store features w increasing accuracy
+    FeatureNode temp;
+    bool solutionFound = false;
 
-//     // explore function, resturns featurenode, pass in a feature node "parent"
-//     // //ex parent = {}
-//     // for (int i = 1; i <= featureLimit; ++i) {
+    while ((result.size() < initialNode.featureLimit) && (!solutionFound))
+    {
+        if (result.size() == 0)
+        {
+            temp = ForwardExplore(initialNode);
+            result.push_back(temp);
+        }
+        else
+        {
+            temp = ForwardExplore(result.back());
 
-//     //    if (!parent.contains(i)) {
-//     //     FeatureNode temp = parent;
-//     //     temp.feature.push_back(i);
-//     //     temp.accuracyEvaluation();
+            // check if child with highest accuracy is lower than parent accuracy
+            if ((result.back()).accuracy > temp.accuracy)
+            {
+                cout << "(WARNING, Accuracy has decreased!)" << endl;
+                solutionFound = true;
+            }
+            else
+            {
+                result.push_back(temp);
+            }
+        }
+    }
 
-//     //     if (!firstChild) {
-//     //     maxChild = temp;
-//     //     firstChild = true;
-//     //     }
-//     //     else {
-//     //         if (temp.accuracy > maxChild.accuracy)
-//     //         maxChild = temp;
-//     //     }
-//     //     }
-//     // }
+    return result.back();
+}
 
-//     // return maxChild
-// }
+// given a parent node, ForwardSelection explores all possible children of parent, returns child w highest accuracy
+FeatureNode ForwardExplore(FeatureNode parent)
+{
+
+    FeatureNode maxChild;
+    bool firstChild = false;
+
+    for (int i = 1; i <= parent.featureLimit; ++i)
+    {
+
+        if (!parent.contains(i))
+        {
+            FeatureNode temp = parent;
+            temp.features.push_back(i);
+            temp.accuracyEvaluation();
+
+            cout << "\tUsing feature(s) " << temp << " accuracy is " << fixed << setprecision(2) << temp.accuracy << "%" << endl;
+
+            if (!firstChild)
+            {
+                maxChild = temp;
+                firstChild = true;
+            }
+            else
+            {
+                if (temp.accuracy > maxChild.accuracy)
+                {
+                    maxChild = temp;
+                }
+            }
+        }
+    }
+
+    cout << "\nFeature set " << maxChild << " was best, accuracy is " << maxChild.accuracy << "%\n"
+         << endl;
+
+    return maxChild;
+}

@@ -15,28 +15,30 @@ FeatureNode::FeatureNode(int numFeatures)
 }
 
 // PART ONE: STUB FUNCTION BELOW
+// find random number between 0 and 1, multiply by 100
 void FeatureNode::accuracyEvaluation()
 {
-    // set the node's accuracy to a random number between 0 and 1, multiply by 100
-    srand(time(0));
-    double random = (double)rand() / RAND_MAX;
-    accuracy = random * 100.00;
+    this->accuracy = ((double)rand() / RAND_MAX) * 100.00;
 }
 
-bool FeatureNode::contains(int num){
-    if (features.size() == 0){
+bool FeatureNode::contains(int num)
+{
+    if (features.size() == 0)
+    {
         return false;
     }
-    else{
-        for(int i = 0; i < features.size(); i++){
-            if(num == features.at(i)){
+    else
+    {
+        for (int i = 0; i < features.size(); i++)
+        {
+            if (num == features.at(i))
+            {
                 return true;
             }
         }
     }
     return false;
 }
-
 
 // contains
 
@@ -45,6 +47,11 @@ FeatureNode &FeatureNode::operator=(const FeatureNode &rhs)
 {
 
     // copy vector of rhs
+    while (!this->features.empty())
+    {
+        this->features.pop_back();
+    }
+
     for (int i = 0; i < rhs.features.size(); ++i)
     {
         this->features.push_back(rhs.features.at(i));
@@ -59,7 +66,7 @@ FeatureNode &FeatureNode::operator=(const FeatureNode &rhs)
 // overload output operator for a FeatureNode
 ostream &operator<<(ostream &out, const FeatureNode &node)
 {
-    out << "Using feature(s) {";
+    out << "{";
 
     if (!(node.features.size() == 0))
     {
@@ -74,6 +81,6 @@ ostream &operator<<(ostream &out, const FeatureNode &node)
         }
     }
 
-    out << "} accuracy is " << node.accuracy << "%" << endl;
+    out << "}";
     return out;
 }
