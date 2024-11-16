@@ -16,9 +16,17 @@ FeatureNode::FeatureNode(int numFeatures)
 
 // PART ONE: STUB FUNCTION BELOW
 // find random number between 0 and 1, multiply by 100
+// returns 0 if features set is empty
 void FeatureNode::accuracyEvaluation()
 {
-    this->accuracy = ((double)rand() / RAND_MAX) * 100.00;
+    if (this->features.size() == 0)
+    {
+        this->accuracy = 0.00;
+    }
+    else
+    {
+        this->accuracy = ((double)rand() / RAND_MAX) * 100.00;
+    }
 }
 
 bool FeatureNode::contains(int num)

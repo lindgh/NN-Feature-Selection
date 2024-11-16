@@ -12,7 +12,7 @@ int main()
 {
     srand(time(0));
 
-    cout << "Welcome to lghun001 and aketh002's Feature Selection Algorithm." << "\n\nPlease enter total number of features: ";
+    cout << "\nWelcome to lghun001 and aketh002's Feature Selection Algorithm." << "\n\nPlease enter total number of features: ";
 
     int userFeatures; // NUM OF FEATURES USER WANTS
     cin >> userFeatures;
@@ -39,7 +39,8 @@ int main()
         break;
 
     case 2:
-        cout << "Backward Elimination Selection Search.\n" << endl;
+        cout << "Backward Elimination Selection Search.\n"
+             << endl;
         bestFeatures = BackwardElimination(userFeatures);
         break;
     }
@@ -58,27 +59,25 @@ FeatureNode ForwardSelection(int userFeatures)
     FeatureNode temp;
     bool solutionFound = false;
 
-    while ((result.size() < initialNode.featureLimit) && (!solutionFound))
+    initialNode.accuracyEvaluation();
+    result.push_back(initialNode);
+
+    cout << "Starting with feature set " << initialNode << " with accuracy " << initialNode.accuracy << "%\n"
+         << endl;
+
+    while ((result.back().features.size() < initialNode.featureLimit) && (!solutionFound))
     {
-        if (result.size() == 0)
+        temp = ForwardExplore(result.back());
+
+        // check if child with highest accuracy is lower than parent accuracy
+        if ((result.back()).accuracy > temp.accuracy)
         {
-            temp = ForwardExplore(initialNode);
-            result.push_back(temp);
+            cout << "(WARNING, Accuracy has decreased!)" << endl;
+            solutionFound = true;
         }
         else
         {
-            temp = ForwardExplore(result.back());
-
-            // check if child with highest accuracy is lower than parent accuracy
-            if ((result.back()).accuracy > temp.accuracy)
-            {
-                cout << "(WARNING, Accuracy has decreased!)" << endl;
-                solutionFound = true;
-            }
-            else
-            {
-                result.push_back(temp);
-            }
+            result.push_back(temp);
         }
     }
 
@@ -124,17 +123,17 @@ FeatureNode ForwardExplore(FeatureNode parent)
     return maxChild;
 }
 
-FeatureNode BackwardExplore(FeatureNode parent) {
-    
+FeatureNode BackwardExplore(FeatureNode parent)
+{
+
     FeatureNode maxChild;
     bool firstChild = false;
 
     for (int i = 0; i < parent.features.size(); i++)
     {
 
-
         FeatureNode temp = parent;
-        temp.features.erase(temp.features.begin()+i);
+        temp.features.erase(temp.features.begin() + i);
         temp.accuracyEvaluation();
 
         cout << "\tUsing feature(s) " << temp << " accuracy is " << fixed << setprecision(2) << temp.accuracy << "%" << endl;
@@ -157,36 +156,39 @@ FeatureNode BackwardExplore(FeatureNode parent) {
          << endl;
 
     return maxChild;
-
 }
 
-FeatureNode BackwardElimination(int userFeatures){
+FeatureNode BackwardElimination(int userFeatures)
+{
     FeatureNode initialNode(userFeatures);
     vector<FeatureNode> result;
     FeatureNode temp;
     bool solutionFound = false;
 
-    for(int i = 1; i <= userFeatures; i++){
+    for (int i = 1; i <= userFeatures; i++)
+    {
         initialNode.features.push_back(i);
     }
 
     initialNode.accuracyEvaluation();
     result.push_back(initialNode);
 
-    cout << "Starting with feature set " << initialNode << " with accuracy " << initialNode.accuracy <<
-    "%\n" << endl;
+    cout << "Starting with feature set " << initialNode << " with accuracy " << initialNode.accuracy << "%\n"
+         << endl;
 
-    while((result.back().features.size() > 1) && (!solutionFound)){
+    while ((result.back().features.size() > 1) && (!solutionFound))
+    {
         temp = BackwardExplore(result.back());
-        if(result.back().accuracy > temp.accuracy){
+        if (result.back().accuracy > temp.accuracy)
+        {
             cout << "(WARNING, Accuracy has decreased!)" << endl;
             solutionFound = true;
         }
-        else{
+        else
+        {
             result.push_back(temp);
         }
     }
 
     return result.back();
-
 }
