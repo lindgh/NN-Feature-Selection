@@ -1,6 +1,8 @@
 #include "../header/FeatureNode.h"
+#include "../header/Validator.h"
 #include <ctime>
 #include <iomanip>
+#include <fstream>
 
 FeatureNode ForwardExplore(FeatureNode parent);
 FeatureNode ForwardSelection(int userFeatures);
@@ -8,8 +10,14 @@ FeatureNode ForwardSelection(int userFeatures);
 FeatureNode BackwardExplore(FeatureNode parent);
 FeatureNode BackwardElimination(int userFeatures);
 
-int main()
+int main(int argc, char *argv[])
 {
+
+    string filename = argv[1];
+
+    Validator v1(filename);
+
+    /* ---BELOW IS ALL PART ONE CODE---
     srand(time(0));
 
     cout << "\nWelcome to lghun001 and aketh002's Feature Selection Algorithm." << "\n\nPlease enter total number of features: ";
@@ -48,6 +56,7 @@ int main()
     cout << "Finished search!! The best feature subset is " << bestFeatures << ", which has an accuracy of " << bestFeatures.accuracy << "%\n"
          << endl;
 
+    */
     return 0;
 }
 
