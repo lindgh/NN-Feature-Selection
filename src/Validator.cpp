@@ -162,7 +162,7 @@ float Validator::euclidean_distance(vector<float> testSample, vector<float> trai
     //testSample.at(1) till testSample.at(testSample.size()-1)
     //i = 1 to ignore class type index
     float featureElement = 0.0f;
-    for(int i = 1; i < features.size()-1; i++){
+    for(int i = 0; i < features.size(); i++){
         //only test against the subset in features -> features stores the index of the datapoints, not the datapoints itself
         featureElement = features.at(i);
         //(x1-x2)
@@ -184,13 +184,11 @@ float Validator::euclidean_distance(vector<float> testSample, vector<float> trai
 // returns accuracy of the classifier, given features store in class Validator
 double Validator::NN_classifier()
 {
-    float NN_dist = MAXFLOAT;
+    float NN_dist = __FLT_MAX__;
     int NN_index = 0;
     double accuracy_counter = 0;
     for (int i = 0; i < data.size(); ++i)
     {
-        vector<float> temp;
-        temp = data.at(i);
         for (int j = 0; j < data.size(); ++j)
         {
             if(i != j){
