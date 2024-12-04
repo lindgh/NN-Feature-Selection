@@ -28,6 +28,8 @@ public:
     float calcMean();
     float calcStdDev(float mean);
 
+    void min_max_normalize();
+
     // pass in a FeatureNode, updates validator's vector of features to FeatureNode's vector
     void update_features(FeatureNode ft);
 

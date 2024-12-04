@@ -3,22 +3,59 @@
 #include <ctime>
 #include <iomanip>
 #include <fstream>
+#include <chrono>
+#include <float.h>
 
 FeatureNode ForwardExplore(FeatureNode parent);
 FeatureNode ForwardSelection(int userFeatures);
 
 FeatureNode BackwardExplore(FeatureNode parent);
 FeatureNode BackwardElimination(int userFeatures);
-//float euclidean_distance(vector<float> testSample, vector<float> trainSample);
+// float euclidean_distance(vector<float> testSample, vector<float> trainSample);
 
+using namespace std;
+using namespace std::chrono;
 
 int main(int argc, char *argv[])
 {
-
-
     string filename = argv[1];
 
     Validator v1(filename);
+
+    FeatureNode node;
+
+    node.features.push_back(3);
+    node.features.push_back(5);
+    node.features.push_back(7);
+
+    v1.update_features(node);
+
+    double accuracy = 0.0;
+
+    cout << "Running NN_classifier on subset {";
+    for (int i = 0; i < node.features.size() - 1; ++i)
+    {
+        cout << node.features.at(i) << " ";
+    }
+    cout << node.features.at(node.features.size() - 1) << "}..." << endl;
+
+    auto start = high_resolution_clock::now();
+
+    accuracy = v1.NN_classifier();
+
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<milliseconds>(stop - start);
+
+    cout << "Time taken by step: " << duration.count() << " ms.\n"
+         << endl;
+
+    cout << "Accuracy of features {";
+    for (int i = 0; i < node.features.size() - 1; ++i)
+    {
+        cout << node.features.at(i) << " ";
+    }
+    cout << node.features.at(node.features.size() - 1) << "} is " << accuracy
+         << "%" << endl;
 
     /* ---BELOW IS ALL PART ONE CODE---
     srand(time(0));
@@ -106,7 +143,7 @@ int main(int argc, char *argv[])
 //     float sum = 0.0f;
 //     float dist = 0.0f;
 //     //only testing between these two samples
-//     //can be up to n features, first index is always class type 
+//     //can be up to n features, first index is always class type
 //     //testSample ex: id #0 : [class type, feature 1 (x1), feature 2 (y1), ... feature n (z1)]
 //     //trainSample ex: id #1 : [class type, feature 1 (x2), feature 2 (y2), ... feature n (z2)]
 
@@ -122,7 +159,7 @@ int main(int argc, char *argv[])
 
 //         dist = pow(dist,2);
 //         //(x1-x20^2 + )(y1-y2)^2 + ...
-//         sum += dist; 
+//         sum += dist;
 
 //     }
 //     //sqrt((x1-x20^2 + )(y1-y2)^2 + ...) -> euclidean dist
