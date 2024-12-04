@@ -1,7 +1,9 @@
 #include "../header/Validator.h"
 #include <cmath>
+#include <chrono>
 
 using namespace std;
+using namespace std::chrono;
 
 // takes in file name, populates vector<vector<float>> data with the stuff from filename
 // should then do z score normalization on the data
@@ -18,8 +20,10 @@ Validator::Validator(string fileName)
     string stringline;
 
     // read in file line by line
-    cout << "Reading in data...\n"
+    cout << "Reading in data..."
          << endl;
+
+    auto start = high_resolution_clock::now();
 
     while (getline(file, stringline))
     {
@@ -34,6 +38,12 @@ Validator::Validator(string fileName)
 
         data.push_back(dataRow);
     }
+
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<milliseconds>(stop - start);
+
+    cout << "Time taken by step: " << duration.count() << " ms.\n"
+         << endl;
 
     // print stuff from data to make sure it was stored properly
     // for (int i = 0; i < data.size(); ++i)
@@ -50,10 +60,16 @@ Validator::Validator(string fileName)
 
     file.close();
 
-    cout << "Normalizing data...\n"
+    cout << "Normalizing data..."
          << endl;
 
+    start = high_resolution_clock::now();
     normalizeData();
+    stop = high_resolution_clock::now();
+    duration = duration_cast<milliseconds>(stop - start);
+
+    cout << "Time taken by step: " << duration.count() << " ms.\n"
+         << endl;
 }
 
 void Validator::normalizeData()
