@@ -58,7 +58,73 @@ Validator::Validator(string fileName)
 
 void Validator::normalizeData()
 {
-    cout << "NORMALIZE DATA UNDER CONSTRUCTION!" << endl;
+    float mean = calcMean();
+    // cout << "mean: " << mean << endl;
+    float stdDev = calcStdDev(mean);
+    // cout << "std Dev: " << stdDev << endl;
+    float tempVal = 0.0f;
+
+    for (int i = 0; i < data.size(); ++i)
+    {
+        vector<float> temp;
+        temp = data.at(i);
+        for (int j = 1; j < temp.size(); ++j)
+        {
+            tempVal = temp.at(j);
+            temp.at(j) = ((tempVal - mean) / stdDev);
+        }
+        data.at(i) = temp;
+    }
+
+    // below is printing for test purposes
+    // for (int i = 0; i < data.size(); ++i)
+    // {
+    //     vector<float> temp;
+    //     temp = data.at(i);
+    //     for (int j = 0; j < temp.size(); ++j)
+    //     {
+    //         cout << temp.at(j) << " ";
+    //     }
+    //     cout << endl;
+    // }
+    // cout << endl;
+}
+
+float Validator::calcMean()
+{
+    int totElements = 0;
+    float sum = 0.0f;
+
+    for (int i = 0; i < data.size(); ++i)
+    {
+        vector<float> temp;
+        temp = data.at(i);
+        for (int j = 1; j < temp.size(); ++j)
+        {
+            sum = sum + temp.at(j);
+            ++totElements;
+        }
+    }
+    return sum / totElements;
+}
+
+float Validator::calcStdDev(float mean)
+{
+    int totElements = 0;
+    float sumSqrdDev = 0.0f;
+
+    for (int i = 0; i < data.size(); ++i)
+    {
+        vector<float> temp;
+        temp = data.at(i);
+        for (int j = 1; j < temp.size(); ++j)
+        {
+            sumSqrdDev = sumSqrdDev + pow(temp.at(j) - mean, 2);
+            ++totElements;
+        }
+    }
+
+    return sqrt(sumSqrdDev / totElements);
 }
 
 // pass in a FeatureNode, updates validator's vector of features to FeatureNode's vector
