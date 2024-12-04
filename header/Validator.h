@@ -2,6 +2,8 @@
 #define VALIDATOR
 
 #include <iostream>
+#include <fstream>
+#include <sstream>
 #include <vector>
 
 #include "FeatureNode.h"
@@ -21,6 +23,8 @@ public:
     // should also do z score normalization on the data
     //  -> (find mean of whole data set, find std dev, use to change every element)
     Validator(string fileName);
+
+    void normalizeData();
 
     // pass in a FeatureNode, updates validator's vector of features to FeatureNode's vector
     void update_features(FeatureNode ft);
