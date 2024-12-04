@@ -14,7 +14,7 @@ class Validator
 {
 public:
     // data members
-    vector< vector<float> > data;
+    vector<vector<float>> data;
     vector<int> features;
 
     // functions
@@ -25,6 +25,8 @@ public:
     Validator(string fileName);
 
     void normalizeData();
+    float calcMean();
+    float calcStdDev(float mean);
 
     // pass in a FeatureNode, updates validator's vector of features to FeatureNode's vector
     void update_features(FeatureNode ft);

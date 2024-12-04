@@ -1,4 +1,5 @@
 #include "../header/Validator.h"
+#include <cmath>
 
 using namespace std;
 
@@ -57,7 +58,73 @@ Validator::Validator(string fileName)
 
 void Validator::normalizeData()
 {
-    cout << "NORMALIZE DATA UNDER CONSTRUCTION!" << endl;
+    float mean = calcMean();
+    // cout << "mean: " << mean << endl;
+    float stdDev = calcStdDev(mean);
+    // cout << "std Dev: " << stdDev << endl;
+    float tempVal = 0.0f;
+
+    for (int i = 0; i < data.size(); ++i)
+    {
+        vector<float> temp;
+        temp = data.at(i);
+        for (int j = 1; j < temp.size(); ++j)
+        {
+            tempVal = temp.at(j);
+            temp.at(j) = ((tempVal - mean) / stdDev);
+        }
+        data.at(i) = temp;
+    }
+
+    // below is printing for test purposes
+    // for (int i = 0; i < data.size(); ++i)
+    // {
+    //     vector<float> temp;
+    //     temp = data.at(i);
+    //     for (int j = 0; j < temp.size(); ++j)
+    //     {
+    //         cout << temp.at(j) << " ";
+    //     }
+    //     cout << endl;
+    // }
+    // cout << endl;
+}
+
+float Validator::calcMean()
+{
+    int totElements = 0;
+    float sum = 0.0f;
+
+    for (int i = 0; i < data.size(); ++i)
+    {
+        vector<float> temp;
+        temp = data.at(i);
+        for (int j = 1; j < temp.size(); ++j)
+        {
+            sum = sum + temp.at(j);
+            ++totElements;
+        }
+    }
+    return sum / totElements;
+}
+
+float Validator::calcStdDev(float mean)
+{
+    int totElements = 0;
+    float sumSqrdDev = 0.0f;
+
+    for (int i = 0; i < data.size(); ++i)
+    {
+        vector<float> temp;
+        temp = data.at(i);
+        for (int j = 1; j < temp.size(); ++j)
+        {
+            sumSqrdDev = sumSqrdDev + pow(temp.at(j) - mean, 2);
+            ++totElements;
+        }
+    }
+
+    return sqrt(sumSqrdDev / totElements);
 }
 
 // pass in a FeatureNode, updates validator's vector of features to FeatureNode's vector
@@ -71,10 +138,10 @@ float Validator::euclidean_distance(vector<float> testSample, vector<float> trai
 {
     float sum = 0.0f;
     float dist = 0.0f;
-    //only testing between these two samples
-    //can be up to n features, first index is always class type 
-    //testSample ex: id #0 : [class type, feature 1 (x1), feature 2 (y1), ... feature n (z1)]
-    //trainSample ex: id #1 : [class type, feature 1 (x2), feature 2 (y2), ... feature n (z2)]
+    // only testing between these two samples
+    // can be up to n features, first index is always class type
+    // testSample ex: id #0 : [class type, feature 1 (x1), feature 2 (y1), ... feature n (z1)]
+    // trainSample ex: id #1 : [class type, feature 1 (x2), feature 2 (y2), ... feature n (z2)]
 
     //testSample.at(1) till testSample.at(testSample.size()-1)
     //i = 1 to ignore class type index
@@ -83,16 +150,16 @@ float Validator::euclidean_distance(vector<float> testSample, vector<float> trai
         //only test against the subset in features -> features stores the index of the datapoints, not the datapoints itself
         featureElement = features.at(i);
         //(x1-x2)
-        dist =  testSample.at(featureElement) - trainSample.at(featureElement);
+        dist =  testSample.at(i) - trainSample.at(i);
         //(x1-x2)^2
-        dist = pow(dist,2);
+        dist = pow(dist, 2);
         //(x1-x20^2 + )(y1-y2)^2 + ...
-        sum += dist; 
-
+        sum += dist;
     }
-    //sqrt((x1-x20^2 + )(y1-y2)^2 + ...) -> euclidean dist
+    // sqrt((x1-x20^2 + )(y1-y2)^2 + ...) -> euclidean dist
     sum = sqrt(sum);
-    if(sum != 0.0f){
+    if (sum != 0.0f)
+    {
         return sum;
     }
     return 0.0f;
