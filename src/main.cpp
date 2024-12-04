@@ -1,4 +1,5 @@
 #include "../header/FeatureNode.h"
+#include "../header/Validator.h"
 #include <ctime>
 #include <iomanip>
 
@@ -7,49 +8,121 @@ FeatureNode ForwardSelection(int userFeatures);
 
 FeatureNode BackwardExplore(FeatureNode parent);
 FeatureNode BackwardElimination(int userFeatures);
+//float euclidean_distance(vector<float> testSample, vector<float> trainSample);
+
 
 int main()
 {
-    srand(time(0));
+    //Validator vd(hi); 
 
-    cout << "\nWelcome to lghun001 and aketh002's Feature Selection Algorithm." << "\n\nPlease enter total number of features: ";
+    //testing euclidean distance
+    // vector<float> testSample;
+    // testSample.push_back(1.0f);
+    // testSample.push_back(5.0688373e+000);
+    // testSample.push_back(3.1403378e+000);
+    // testSample.push_back(1.2891084e+000);
+    // // cout << testSample.size() << endl;
+    // for(int i=0; i < testSample.size();i++){
+    //     cout << testSample.at(i) << " ";
+    // }
+    // cout << endl;
 
-    int userFeatures; // NUM OF FEATURES USER WANTS
-    cin >> userFeatures;
-    cout << endl;
+    // vector<float> trainSample;
+    // trainSample.push_back(2.0f);
+    // trainSample.push_back(4.5426593e+000);
+    // trainSample.push_back(2.5859775e+000);
+    // trainSample.push_back(4.1604586e+000);
 
-    cout << "Type the number of the algorithm you want to run.\n\n";
-    cout << "\t1. Forward Selection" << endl;
-    cout << "\t2. Backward Elimination\n"
-         << endl;
+    // for(int i=0; i < trainSample.size();i++){
+    //     cout << trainSample.at(i) << " ";
+    // }
+    // cout << endl;
 
-    int userAlgorithm; // ALGORITHM USER WANTS
-    cout << "Your choice: ";
-    cin >> userAlgorithm;
-    cout << endl;
+    // testSample = trainSample;
 
-    // call appropriate algorithm to get best set of features!
-    FeatureNode bestFeatures;
-    switch (userAlgorithm)
-    {
-    case 1:
-        cout << "Beginning Forward Selection Search.\n"
-             << endl;
-        bestFeatures = ForwardSelection(userFeatures);
-        break;
+    // for(int i=0; i < trainSample.size();i++){
+    //     cout << trainSample.at(i) << " ";
+    // }
 
-    case 2:
-        cout << "Backward Elimination Selection Search.\n"
-             << endl;
-        bestFeatures = BackwardElimination(userFeatures);
-        break;
-    }
+    // float res = euclidean_distance(testSample, trainSample);
+    // cout << res << endl;
 
-    cout << "Finished search!! The best feature subset is " << bestFeatures << ", which has an accuracy of " << bestFeatures.accuracy << "%\n"
-         << endl;
+    //vector<float> testSample = {2.0000000e+000, 5.0688373e+000, 3.1403378e+000, 1.2891084e+000, 5.7634216e-001, 2.7268616e+000, 1.9103920e+000, 4.6027145e+000, 3.3621920e+000, 4.0253170e+000, 2.8503988e+000}
+
+    //vector<float> trainSample = {2.0000000e+000, 4.5426593e+000, 2.5859775e+000, 4.1604586e+000, 3.4542063e+000, 4.4436954e+000, 4.0238492e+000, 3.1987725e+000, 2.9734490e+000, 2.6177713e+000, 1.6957015e+000}
+    // srand(time(0));
+
+    // cout << "\nWelcome to lghun001 and aketh002's Feature Selection Algorithm." << "\n\nPlease enter total number of features: ";
+
+    // int userFeatures; // NUM OF FEATURES USER WANTS
+    // cin >> userFeatures;
+    // cout << endl;
+
+    // cout << "Type the number of the algorithm you want to run.\n\n";
+    // cout << "\t1. Forward Selection" << endl;
+    // cout << "\t2. Backward Elimination\n"
+    //      << endl;
+
+    // int userAlgorithm; // ALGORITHM USER WANTS
+    // cout << "Your choice: ";
+    // cin >> userAlgorithm;
+    // cout << endl;
+
+    // // call appropriate algorithm to get best set of features!
+    // FeatureNode bestFeatures;
+    // switch (userAlgorithm)
+    // {
+    // case 1:
+    //     cout << "Beginning Forward Selection Search.\n"
+    //          << endl;
+    //     bestFeatures = ForwardSelection(userFeatures);
+    //     break;
+
+    // case 2:
+    //     cout << "Backward Elimination Selection Search.\n"
+    //          << endl;
+    //     bestFeatures = BackwardElimination(userFeatures);
+    //     break;
+    // }
+
+    // cout << "Finished search!! The best feature subset is " << bestFeatures << ", which has an accuracy of " << bestFeatures.accuracy << "%\n"
+    //      << endl;
 
     return 0;
 }
+
+// float euclidean_distance(vector<float> testSample, vector<float> trainSample)
+// {
+
+//     float sum = 0.0f;
+//     float dist = 0.0f;
+//     //only testing between these two samples
+//     //can be up to n features, first index is always class type 
+//     //testSample ex: id #0 : [class type, feature 1 (x1), feature 2 (y1), ... feature n (z1)]
+//     //trainSample ex: id #1 : [class type, feature 1 (x2), feature 2 (y2), ... feature n (z2)]
+
+//     //testSample.at(1) till testSample.at(testSample.size()-1)
+//     //i = 1 to ignore class type index
+//      cout << testSample.size();
+//     for(int i = 1; i < testSample.size(); i++){
+//         //(x1-x2)
+//         //error here
+//         //cout << testSample.at(i) << "-" << trainSample.at(i);
+//         dist = testSample.at(i) - trainSample.at(i);
+//         //(x1-x2)^2
+
+//         dist = pow(dist,2);
+//         //(x1-x20^2 + )(y1-y2)^2 + ...
+//         sum += dist; 
+
+//     }
+//     //sqrt((x1-x20^2 + )(y1-y2)^2 + ...) -> euclidean dist
+//     sum = sqrt(sum);
+//     if(sum != 0.0f){
+//         return sum;
+//     }
+//     return 0.0f;
+// }
 
 FeatureNode ForwardSelection(int userFeatures)
 {

@@ -12,7 +12,7 @@ class Validator
 {
 public:
     // data members
-    vector<vector<float>> data;
+    vector< vector<float> > data;
     vector<int> features;
 
     // functions
