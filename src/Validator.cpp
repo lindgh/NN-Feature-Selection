@@ -1,7 +1,7 @@
 #include "../header/Validator.h"
 
-// takes in file name, populates data with the stuff from filename
-// should also do z score normalization on the data
+// takes in file name, populates vector<vector<float>> data with the stuff from filename
+// should then do z score normalization on the data
 //  -> (find mean of whole data set, find std dev, use to change every element)
 Validator::Validator(string fileName)
 {
