@@ -14,9 +14,7 @@ FeatureNode BackwardElimination(int userFeatures);
 
 int main(int argc, char *argv[])
 {
-<<<<<<< HEAD
-    //Validator vd(hi); 
-=======
+
 
     string filename = argv[1];
 
@@ -24,7 +22,6 @@ int main(int argc, char *argv[])
 
     /* ---BELOW IS ALL PART ONE CODE---
     srand(time(0));
->>>>>>> 6a535bef378ae9b117de80562151569bf4d850e1
 
     //testing euclidean distance
     // vector<float> testSample;
