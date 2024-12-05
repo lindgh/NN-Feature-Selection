@@ -311,7 +311,7 @@ float Validator::euclidean_distance(vector<float> testSample, vector<float> trai
         dist = testSample.at(i) - trainSample.at(i);
         //(x1-x2)^2
         dist = pow(dist, 2);
-        //(x1-x20^2 + )(y1-y2)^2 + ...
+        //(x1-x2)^2 + (y1-y2)^2 + ...
         sum += dist;
     }
     // sqrt((x1-x20^2 + )(y1-y2)^2 + ...) -> euclidean dist
