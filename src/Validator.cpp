@@ -67,9 +67,9 @@ Validator::Validator(string fileName)
          << endl;
 
     start = high_resolution_clock::now();
-    // normalizeData();
+    normalizeData();
 
-    min_max_normalize();
+    //min_max_normalize();
 
     cout << "after normalization: " << endl;
     for (int i = 0; i < data.size(); ++i)
@@ -128,24 +128,69 @@ void Validator::min_max_normalize()
     }
 }
 
+//mean and std for each column, this should be for loop
+//finding mean and std for each column, updating each column then again next
+//PREV
+// void Validator::normalizeData()
+// {
+//     float mean = calcMean();
+//     // cout << "mean: " << mean << endl;
+//     float stdDev = calcStdDev(mean);
+//     // cout << "std Dev: " << stdDev << endl;
+//     float tempVal = 0.0f;
+
+//     for (int i = 0; i < data.size(); ++i)
+//     {
+//         vector<float> temp;
+//         temp = data.at(i);
+//         for (int j = 1; j < temp.size(); ++j)
+//         {
+//             tempVal = temp.at(j);
+//             temp.at(j) = ((tempVal - mean) / stdDev);
+//         }
+//         data.at(i) = temp;
+//     }
+    
+
+//     // below is printing for test purposes
+//     // cout << "after normalization: " << endl;
+//     // for (int i = 0; i < data.size(); ++i)
+//     // {
+//     //     vector<float> temp;
+//     //     temp = data.at(i);
+//     //     for (int j = 0; j < temp.size(); ++j)
+//     //     {
+//     //         cout << temp.at(j) << " ";
+//     //     }
+//     //     cout << endl;
+//     // }
+//     // cout << endl;
+// }
+//PREV END
+
+//NEW
 void Validator::normalizeData()
 {
-    float mean = calcMean();
-    // cout << "mean: " << mean << endl;
-    float stdDev = calcStdDev(mean);
-    // cout << "std Dev: " << stdDev << endl;
-    float tempVal = 0.0f;
+    //per each feature
+    for(int feature_index = 1; feature_index < data.at(0).size(); feature_index++){
 
-    for (int i = 0; i < data.size(); ++i)
-    {
-        vector<float> temp;
-        temp = data.at(i);
-        for (int j = 1; j < temp.size(); ++j)
+        float mean = calcMean(feature_index);
+        // cout << "mean: " << mean << endl;
+        float stdDev = calcStdDev(mean, feature_index);
+        // cout << "std Dev: " << stdDev << endl;
+        float tempVal = 0.0f;
+
+        // for (int i = 0; i < data.size(); ++i)
+        // {
+
+        for (int j = 0; j < data.size(); ++j)
         {
-            tempVal = temp.at(j);
-            temp.at(j) = ((tempVal - mean) / stdDev);
+            tempVal = data.at(j).at(feature_index);
+            data.at(j).at(feature_index) = ((tempVal - mean) / stdDev);
+
         }
-        data.at(i) = temp;
+
+        // }
     }
 
     // below is printing for test purposes
@@ -162,43 +207,82 @@ void Validator::normalizeData()
     // }
     // cout << endl;
 }
+//NEW END
 
-float Validator::calcMean()
+//calc mean should be for the column not the row
+
+// //PREV
+// float Validator::calcMean()
+// {
+//     int totElements = 0;
+//     float sum = 0.0f;
+
+//     for (int i = 0; i < data.size(); ++i)
+//     {
+//         vector<float> temp;
+//         temp = data.at(i);
+//         for (int j = 1; j < temp.size(); ++j)
+//         {
+//             sum = sum + temp.at(j);
+//             ++totElements;
+//         }
+//     }
+//     return sum / totElements;
+// }
+
+
+// float Validator::calcStdDev(float mean)
+// {
+//     int totElements = 0;
+//     float sumSqrdDev = 0.0f;
+
+//     for (int i = 0; i < data.size(); ++i)
+//     {
+//         vector<float> temp;
+//         temp = data.at(i);
+//         for (int j = 1; j < temp.size(); ++j)
+//         {
+//             sumSqrdDev = sumSqrdDev + pow(temp.at(j) - mean, 2);
+//             ++totElements;
+//         }
+//     }
+
+//     return sqrt(sumSqrdDev / totElements);
+// }
+// PREV END
+
+//NEW
+float Validator::calcMean(int feature_index)
 {
     int totElements = 0;
     float sum = 0.0f;
 
-    for (int i = 0; i < data.size(); ++i)
+
+    for (int j = 0; j < data.size(); ++j)
     {
-        vector<float> temp;
-        temp = data.at(i);
-        for (int j = 1; j < temp.size(); ++j)
-        {
-            sum = sum + temp.at(j);
-            ++totElements;
-        }
+        sum = sum + data.at(j).at(feature_index);
+        ++totElements;
     }
+
     return sum / totElements;
 }
 
-float Validator::calcStdDev(float mean)
+
+float Validator::calcStdDev(float mean, int feature_index)
 {
     int totElements = 0;
     float sumSqrdDev = 0.0f;
 
-    for (int i = 0; i < data.size(); ++i)
+
+    for (int j = 0; j < data.size(); ++j)
     {
-        vector<float> temp;
-        temp = data.at(i);
-        for (int j = 1; j < temp.size(); ++j)
-        {
-            sumSqrdDev = sumSqrdDev + pow(temp.at(j) - mean, 2);
-            ++totElements;
-        }
+        sumSqrdDev = sumSqrdDev + pow(data.at(j).at(feature_index) - mean, 2);
+        ++totElements;
     }
 
     return sqrt(sumSqrdDev / totElements);
 }
+//NEW END
 
 // pass in a FeatureNode, updates validator's vector of features to FeatureNode's vector
 void Validator::update_features(FeatureNode ft)

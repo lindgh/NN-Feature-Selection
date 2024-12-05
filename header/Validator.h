@@ -14,7 +14,7 @@ class Validator
 {
 public:
     // data members
-    vector<vector<float>> data;
+    vector< vector<float> > data;
     vector<int> features;
 
     // functions
@@ -25,8 +25,10 @@ public:
     Validator(string fileName);
 
     void normalizeData();
-    float calcMean();
-    float calcStdDev(float mean);
+    // float calcMean();
+    // float calcStdDev(float mean);
+    float calcMean(int feature_index);
+    float calcStdDev(float mean, int feature_index);
 
     void min_max_normalize();
 
