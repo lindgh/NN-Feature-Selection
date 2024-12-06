@@ -6,8 +6,6 @@
 #include <sstream>
 #include <vector>
 
-#include "FeatureNode.h"
-
 using namespace std;
 
 class Validator
