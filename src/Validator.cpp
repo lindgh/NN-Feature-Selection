@@ -22,7 +22,7 @@ Validator::Validator(string fileName)
     string stringline;
 
     // read in file line by line
-    cout << "Reading in data..."
+    cout << "\nReading in data..."
          << endl;
 
     auto start = high_resolution_clock::now();
@@ -48,18 +48,18 @@ Validator::Validator(string fileName)
          << endl;
 
     // print stuff from data to make sure it was stored properly
-    cout << "before normalization: " << endl;
-    for (int i = 0; i < data.size(); ++i)
-    {
-        vector<float> temp;
-        temp = data.at(i);
-        for (int j = 0; j < temp.size(); ++j)
-        {
-            cout << temp.at(j) << " ";
-        }
-        cout << endl;
-    }
-    cout << endl;
+    // cout << "before normalization: " << endl;
+    // for (int i = 0; i < data.size(); ++i)
+    // {
+    //     vector<float> temp;
+    //     temp = data.at(i);
+    //     for (int j = 0; j < temp.size(); ++j)
+    //     {
+    //         cout << temp.at(j) << " ";
+    //     }
+    //     cout << endl;
+    // }
+    // cout << endl;
 
     file.close();
 
@@ -69,20 +69,20 @@ Validator::Validator(string fileName)
     start = high_resolution_clock::now();
     normalizeData();
 
-    //min_max_normalize();
+    // min_max_normalize();
 
-    cout << "after normalization: " << endl;
-    for (int i = 0; i < data.size(); ++i)
-    {
-        vector<float> temp;
-        temp = data.at(i);
-        for (int j = 0; j < temp.size(); ++j)
-        {
-            cout << temp.at(j) << " ";
-        }
-        cout << endl;
-    }
-    cout << endl;
+    // cout << "after normalization: " << endl;
+    // for (int i = 0; i < data.size(); ++i)
+    // {
+    //     vector<float> temp;
+    //     temp = data.at(i);
+    //     for (int j = 0; j < temp.size(); ++j)
+    //     {
+    //         cout << temp.at(j) << " ";
+    //     }
+    //     cout << endl;
+    // }
+    // cout << endl;
 
     stop = high_resolution_clock::now();
     duration = duration_cast<milliseconds>(stop - start);
@@ -128,16 +128,16 @@ void Validator::min_max_normalize()
     }
 }
 
-//mean and std for each column, this should be for loop
-//finding mean and std for each column, updating each column then again next
-//PREV
-// void Validator::normalizeData()
-// {
-//     float mean = calcMean();
-//     // cout << "mean: " << mean << endl;
-//     float stdDev = calcStdDev(mean);
-//     // cout << "std Dev: " << stdDev << endl;
-//     float tempVal = 0.0f;
+// mean and std for each column, this should be for loop
+// finding mean and std for each column, updating each column then again next
+// PREV
+//  void Validator::normalizeData()
+//  {
+//      float mean = calcMean();
+//      // cout << "mean: " << mean << endl;
+//      float stdDev = calcStdDev(mean);
+//      // cout << "std Dev: " << stdDev << endl;
+//      float tempVal = 0.0f;
 
 //     for (int i = 0; i < data.size(); ++i)
 //     {
@@ -150,7 +150,6 @@ void Validator::min_max_normalize()
 //         }
 //         data.at(i) = temp;
 //     }
-    
 
 //     // below is printing for test purposes
 //     // cout << "after normalization: " << endl;
@@ -166,13 +165,14 @@ void Validator::min_max_normalize()
 //     // }
 //     // cout << endl;
 // }
-//PREV END
+// PREV END
 
-//NEW
+// NEW
 void Validator::normalizeData()
 {
-    //per each feature
-    for(int feature_index = 1; feature_index < data.at(0).size(); feature_index++){
+    // per each feature
+    for (int feature_index = 1; feature_index < data.at(0).size(); feature_index++)
+    {
 
         float mean = calcMean(feature_index);
         // cout << "mean: " << mean << endl;
@@ -187,7 +187,6 @@ void Validator::normalizeData()
         {
             tempVal = data.at(j).at(feature_index);
             data.at(j).at(feature_index) = ((tempVal - mean) / stdDev);
-
         }
 
         // }
@@ -207,9 +206,9 @@ void Validator::normalizeData()
     // }
     // cout << endl;
 }
-//NEW END
+// NEW END
 
-//calc mean should be for the column not the row
+// calc mean should be for the column not the row
 
 // //PREV
 // float Validator::calcMean()
@@ -229,7 +228,6 @@ void Validator::normalizeData()
 //     }
 //     return sum / totElements;
 // }
-
 
 // float Validator::calcStdDev(float mean)
 // {
@@ -251,12 +249,11 @@ void Validator::normalizeData()
 // }
 // PREV END
 
-//NEW
+// NEW
 float Validator::calcMean(int feature_index)
 {
     int totElements = 0;
     float sum = 0.0f;
-
 
     for (int j = 0; j < data.size(); ++j)
     {
@@ -267,12 +264,10 @@ float Validator::calcMean(int feature_index)
     return sum / totElements;
 }
 
-
 float Validator::calcStdDev(float mean, int feature_index)
 {
     int totElements = 0;
     float sumSqrdDev = 0.0f;
-
 
     for (int j = 0; j < data.size(); ++j)
     {
@@ -282,7 +277,7 @@ float Validator::calcStdDev(float mean, int feature_index)
 
     return sqrt(sumSqrdDev / totElements);
 }
-//NEW END
+// NEW END
 
 // pass in a FeatureNode, updates validator's vector of features to FeatureNode's vector
 void Validator::update_features(FeatureNode ft)
@@ -326,16 +321,16 @@ float Validator::euclidean_distance(vector<float> testSample, vector<float> trai
 // returns accuracy of the classifier, given features store in class Validator
 double Validator::NN_classifier()
 {
-    //float NN_dist = MAXFLOAT;
-    //int NN_index = 0;
+    // float NN_dist = MAXFLOAT;
+    // int NN_index = 0;
     int accuracy_counter = 0;
     int j = 0;
-    //our test data is whatever instance is at i
+    // our test data is whatever instance is at i
     for (int i = 0; i < data.size(); ++i)
     {
-        float NN_dist = MAXFLOAT;
+        float NN_dist = FLT_MAX;
         int NN_index = 0;
-        //our train data is whatever is at j
+        // our train data is whatever is at j
         for (j = 0; j < data.size(); ++j)
         {
             if (i != j)
@@ -353,7 +348,6 @@ double Validator::NN_classifier()
         {
             accuracy_counter++;
         }
-
     }
 
     if (accuracy_counter != 0)

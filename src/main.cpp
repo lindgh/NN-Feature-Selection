@@ -24,10 +24,9 @@ int main(int argc, char *argv[])
 
     FeatureNode node;
 
-    node.features.push_back(3);
-    node.features.push_back(5);
-    node.features.push_back(7);
-
+    node.features.push_back(1);
+    node.features.push_back(15);
+    node.features.push_back(27);
 
     // //large dataset
     // node.features.push_back(1);
