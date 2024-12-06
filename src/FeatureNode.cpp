@@ -26,6 +26,7 @@ void FeatureNode::accuracyEvaluation()
     else
     {
         this->accuracy = ((double)rand() / RAND_MAX) * 100.00;
+
     }
 }
 
