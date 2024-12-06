@@ -302,13 +302,13 @@ float Validator::euclidean_distance(vector<float> testSample, vector<float> trai
 
     // testSample.at(1) till testSample.at(testSample.size()-1)
     // i = 1 to ignore class type index
-    float featureElement = 0.0f;
+    int featureElement = 0;
     for (int i = 0; i < features.size(); i++)
     {
         // only test against the subset in features -> features stores the index of the datapoints, not the datapoints itself
         featureElement = features.at(i);
         //(x1-x2)
-        dist = testSample.at(i) - trainSample.at(i);
+        dist = testSample.at(featureElement) - trainSample.at(featureElement);
         //(x1-x2)^2
         dist = pow(dist, 2);
         //(x1-x2)^2 + (y1-y2)^2 + ...
@@ -326,28 +326,34 @@ float Validator::euclidean_distance(vector<float> testSample, vector<float> trai
 // returns accuracy of the classifier, given features store in class Validator
 double Validator::NN_classifier()
 {
-    float NN_dist = MAXFLOAT;
-    int NN_index = 0;
+    //float NN_dist = MAXFLOAT;
+    //int NN_index = 0;
     int accuracy_counter = 0;
-
+    int j = 0;
+    //our test data is whatever instance is at i
     for (int i = 0; i < data.size(); ++i)
     {
-        for (int j = 0; j < data.size(); ++j)
+        float NN_dist = MAXFLOAT;
+        int NN_index = 0;
+        //our train data is whatever is at j
+        for (j = 0; j < data.size(); ++j)
         {
             if (i != j)
             {
                 float dist = euclidean_distance(data.at(i), data.at(j));
-                if (dist < NN_dist)
+                if (dist <= NN_dist)
                 {
                     NN_dist = dist;
                     NN_index = j;
                 }
             }
         }
+
         if ((data.at(i)).at(0) == data.at(NN_index).at(0))
         {
             accuracy_counter++;
         }
+
     }
 
     if (accuracy_counter != 0)

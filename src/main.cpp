@@ -28,16 +28,22 @@ int main(int argc, char *argv[])
     node.features.push_back(5);
     node.features.push_back(7);
 
+
+    // //large dataset
+    // node.features.push_back(1);
+    // node.features.push_back(15);
+    // node.features.push_back(27);
+
     v1.update_features(node);
 
     double accuracy = 0.0;
 
     cout << "Running NN_classifier on subset {";
-    for (int i = 0; i < node.features.size() - 1; ++i)
+    for (int i = 0; i < v1.features.size() - 1; ++i)
     {
-        cout << node.features.at(i) << " ";
+        cout << v1.features.at(i) << " ";
     }
-    cout << node.features.at(node.features.size() - 1) << "}..." << endl;
+    cout << v1.features.at(v1.features.size() - 1) << "}..." << endl;
 
     auto start = high_resolution_clock::now();
 
@@ -50,11 +56,11 @@ int main(int argc, char *argv[])
          << endl;
 
     cout << "Accuracy of features {";
-    for (int i = 0; i < node.features.size() - 1; ++i)
+    for (int i = 0; i < v1.features.size() - 1; ++i)
     {
-        cout << node.features.at(i) << " ";
+        cout << v1.features.at(i) << " ";
     }
-    cout << node.features.at(node.features.size() - 1) << "} is " << accuracy
+    cout << v1.features.at(v1.features.size() - 1) << "} is " << accuracy
          << "%" << endl;
 
     /* ---BELOW IS ALL PART ONE CODE---
