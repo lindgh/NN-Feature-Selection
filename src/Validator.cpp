@@ -22,10 +22,10 @@ Validator::Validator(string fileName)
     string stringline;
 
     // read in file line by line
-    cout << "\nReading in data..."
-         << endl;
+    // cout << "\nReading in data..."
+    //      << endl;
 
-    auto start = high_resolution_clock::now();
+    // auto start = high_resolution_clock::now();
 
     while (getline(file, stringline))
     {
@@ -41,11 +41,11 @@ Validator::Validator(string fileName)
         data.push_back(dataRow);
     }
 
-    auto stop = high_resolution_clock::now();
-    auto duration = duration_cast<milliseconds>(stop - start);
+    // auto stop = high_resolution_clock::now();
+    // auto duration = duration_cast<milliseconds>(stop - start);
 
-    cout << "Time taken by step: " << duration.count() << " ms.\n"
-         << endl;
+    // cout << "Time taken by step: " << duration.count() << " ms.\n"
+    //      << endl;
 
     // print stuff from data to make sure it was stored properly
     // cout << "before normalization: " << endl;
@@ -63,10 +63,10 @@ Validator::Validator(string fileName)
 
     file.close();
 
-    cout << "Normalizing data..."
-         << endl;
+    // cout << "Normalizing data..."
+    //      << endl;
 
-    start = high_resolution_clock::now();
+    // start = high_resolution_clock::now();
     normalizeData();
 
     // min_max_normalize();
@@ -84,11 +84,11 @@ Validator::Validator(string fileName)
     // }
     // cout << endl;
 
-    stop = high_resolution_clock::now();
-    duration = duration_cast<milliseconds>(stop - start);
+    // stop = high_resolution_clock::now();
+    // duration = duration_cast<milliseconds>(stop - start);
 
-    cout << "Time taken by step: " << duration.count() << " ms.\n"
-         << endl;
+    // cout << "Time taken by step: " << duration.count() << " ms.\n"
+    //      << endl;
 }
 
 void Validator::min_max_normalize()
@@ -280,9 +280,9 @@ float Validator::calcStdDev(float mean, int feature_index)
 // NEW END
 
 // pass in a FeatureNode, updates validator's vector of features to FeatureNode's vector
-void Validator::update_features(FeatureNode ft)
+void Validator::update_features(vector<int> ft)
 {
-    features = ft.features;
+    features = ft;
 }
 
 // takes in testSample, trainSample, and calcs distance using the features listed in FeatureNode features
