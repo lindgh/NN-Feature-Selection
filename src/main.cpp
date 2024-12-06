@@ -1,3 +1,25 @@
+/*
+- Group: Advithi Kethidi – aketh002, 862331573 – Session 21, Linda Ghunaim – lghun001, 862267489 – Session 21
+- DatasetID: whaaa???
+- Small Dataset Results:
+- Forward: Feature Subset: {5,3}, Acc: 0.92
+- Backward: Feature Subset: {2,4,5,7,10} Acc: 0.82
+- Large Dataset Results:
+- Forward: Feature Subset: {27, 1}, Acc: 0.955
+- Backward: Feature Subset: {2, 3, 4, 5, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 
+    18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 
+    30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40}, Acc: 0.7220
+- Titanic Dataset Results:
+- Forward: Feature Subset: {2}, Acc: 0.7773
+- Backward: Feature Subset: {1,2,3}, Acc: 0.7913
+
+*/
+
+
+
+
+
+
 #include "../header/FeatureNode.h"
 #include "../header/Validator.h"
 #include <ctime>
