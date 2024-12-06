@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include "Validator.h"
 using namespace std;
 
 class FeatureNode
@@ -18,7 +19,7 @@ public:
 
     FeatureNode();
     FeatureNode(int numFeatures);                   // 1. constructor. takes in # of features to be considered
-    void accuracyEvaluation();                      // 2. evaluation function on a FeatureNode modifies accuracy
+    void accuracyEvaluation(Validator &v1);         // 2. evaluation function on a FeatureNode modifies accuracy
     FeatureNode &operator=(const FeatureNode &rhs); // 3. copy constructor
     friend ostream &operator<<(ostream &out, const FeatureNode &node);
 

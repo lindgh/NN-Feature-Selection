@@ -1,4 +1,5 @@
 #include "../header/FeatureNode.h"
+#include "../header/Validator.h"
 #include <ctime>
 
 FeatureNode::FeatureNode()
@@ -17,7 +18,7 @@ FeatureNode::FeatureNode(int numFeatures)
 // PART ONE: STUB FUNCTION BELOW
 // find random number between 0 and 1, multiply by 100
 // returns 0 if features set is empty
-void FeatureNode::accuracyEvaluation()
+void FeatureNode::accuracyEvaluation(Validator &v1)
 {
     if (this->features.size() == 0)
     {
@@ -25,8 +26,7 @@ void FeatureNode::accuracyEvaluation()
     }
     else
     {
-        this->accuracy = ((double)rand() / RAND_MAX) * 100.00;
-
+        this->accuracy = v1.NN_classifier();
     }
 }
 

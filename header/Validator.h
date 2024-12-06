@@ -14,7 +14,7 @@ class Validator
 {
 public:
     // data members
-    vector< vector<float> > data;
+    vector<vector<float>> data;
     vector<int> features;
 
     // functions
@@ -33,7 +33,7 @@ public:
     void min_max_normalize();
 
     // pass in a FeatureNode, updates validator's vector of features to FeatureNode's vector
-    void update_features(FeatureNode ft);
+    void update_features(vector<int> ft);
 
     // takes in testSample, trainSample, and calcs distance using the features listed in FeatureNode features
     float euclidean_distance(vector<float> testSample, vector<float> trainSample);
