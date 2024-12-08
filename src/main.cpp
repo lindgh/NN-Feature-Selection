@@ -15,7 +15,11 @@
 
 */
 
-
+/* REFERENCES:
+    - Reading in data as floating point: Stack overflow, https://stackoverflow.com/questions/48464430/how-to-read-data-from-file-to-int-float-values-in-c 
+    - Z-score normalization: Geeks for geeks, https://www.statology.org/z-score-normalization/ 
+    - Implementing a timer for part 2: Stack overflow, https://stackoverflow.com/questions/30702759/implementing-a-timer-in-c
+*/
 
 
 
